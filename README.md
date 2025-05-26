@@ -1,35 +1,56 @@
-                        +----------------+
-                        | Log Generators |
-                        |(Python Scripts)|
-                        +-------+--------+
-                                |
-                                v
-                        +-------+--------+
-                        |     Kafka      |
-                        |  (3 Topics)    |
-                        | auth/session/...|
-                        +-------+--------+
-                                |
-                                v
+# Real-Time User Log Data Pipeline
 
-+-------------------+ +-----+------+
-| Spark Structured |<---| Kafka Stream|
-| Streaming Engine | +------------+
-| (Read, Parse, |
-| Transform) |
-+--------+----------+
-|
-v
-+--------+----------+
-| Cassandra DB |
-| Keyspace: user_db |
-| Tables: |
-| - auth_logs |
-| - session_logs |
-| - activity_logs |
-+-------------------+
+This project demonstrates a real-time data streaming pipeline using Kafka, Spark, and Cassandra. It ingests `user_session_logs`, `user_auth_logs`, and `user_activity_logs`, processes them using Spark, and stores them in a Cassandra database.
 
-### Directory Structure
+---
+
+## Architecture
+
+
+                                +----------------+
+                                | Log Generators |
+                                |(Python Scripts)|
+                                +----------------+  
+                                        |
+                                        v
+                            +-----------------------+
+                            |         Kafka         |
+                            |      (3 Topics)       |
+                            | auth/session/activity |
+                            +-----------------------+
+                                        |
+                                        v
++-------------------------+      +--------------+
+|    Spark Structured     | <----| Kafka Stream |
+|    Streaming Engine     |      +--------------+
+| (Read, Parse, Transform)|
++-------------------------+
+            |
+            v
+    +-------------------+
+    | Cassandra DB      |
+    | Keyspace: user_db |
+    | Tables:           |
+    | - auth_logs       |
+    | - session_logs    |
+    | - activity_logs   |
+    +-------------------+
+
+1. **Kafka**: Manages real-time log streams.
+2. **Spark**: Reads, transforms, and processes data from Kafka topics.
+3. **Cassandra**: Stores the processed structured data.
+
+---
+
+## Data Flow
+
+- `Log Generator` → `Kafka Producer` → `Kafka Topics`
+- `Spark Streaming` reads from Kafka and transforms the logs
+- Transformed logs are written to `Cassandra`
+
+---
+
+## Directory Structure
 
 real-time-data-pipeline/
 ├── kafka/
@@ -52,40 +73,10 @@ real-time-data-pipeline/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-
-# Real-Time User Log Data Pipeline
-
-This project demonstrates a real-time data streaming pipeline using Kafka, Spark, and Cassandra. It ingests `user_session_logs`, `user_auth_logs`, and `user_activity_logs`, processes them using Spark, and stores them in a Cassandra database.
-
 ---
 
-## Architecture
 
-1. **Kafka**: Manages real-time log streams.
-2. **Spark**: Reads, transforms, and processes data from Kafka topics.
-3. **Cassandra**: Stores the processed structured data.
 
----
-
-## Data Flow
-
-- `Log Generator` → `Kafka Producer` → `Kafka Topics`
-- `Spark Streaming` reads from Kafka and transforms the logs
-- Transformed logs are written to `Cassandra`
-
----
-
-## Folder Structure
-
-| Folder       | Purpose                                   |
-| ------------ | ----------------------------------------- |
-| `kafka/`     | Kafka producer scripts and topic creation |
-| `spark/`     | Spark streaming script                    |
-| `cassandra/` | Cassandra schema and connection logic     |
-| `data/`      | Sample log files                          |
-| `utils/`     | Shared config and schemas                 |
-
----
 
 ## Setup Instructions
 
