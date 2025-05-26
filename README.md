@@ -6,7 +6,7 @@ This project demonstrates a real-time data streaming pipeline using Kafka, Spark
 
 ## Architecture
 
-
+```
                                 +----------------+
                                 | Log Generators |
                                 |(Python Scripts)|
@@ -35,7 +35,7 @@ This project demonstrates a real-time data streaming pipeline using Kafka, Spark
     | - session_logs    |
     | - activity_logs   |
     +-------------------+
-
+```
 1. **Kafka**: Manages real-time log streams.
 2. **Spark**: Reads, transforms, and processes data from Kafka topics.
 3. **Cassandra**: Stores the processed structured data.
@@ -51,7 +51,7 @@ This project demonstrates a real-time data streaming pipeline using Kafka, Spark
 ---
 
 ## Directory Structure
-
+```
 real-time-data-pipeline/
 ├── kafka/
 │ ├── create_topics.sh
@@ -73,6 +73,7 @@ real-time-data-pipeline/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
+```
 ---
 
 
@@ -133,7 +134,7 @@ python spark/spark_streaming.py
 
 ## Author
 
-Anil Thapa
+Austin Thapa
 
 ## License
 
