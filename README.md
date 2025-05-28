@@ -1,6 +1,7 @@
-# Real-Time Data (Logs) Streaming Pipeline
+# Real-Time Data Streaming Pipeline
 
 This project demonstrates a fully Dockerized real-time data streaming pipeline using **Apache Kafka (via Confluent Platform)**, **Apache Spark**, and **Apache Cassandra**. The pipeline ingests `user_session_logs`, `user_auth_logs`, and `user_activity_logs` through **Kafka**, processes them in real-time using **Spark Structured Streaming**, and stores the results in **Cassandra**. It leverages **Confluent’s Schema Registry** to enforce and validate Avro schemas for Kafka topics and provides an intuitive web-based interface through **Kafka Control Center** for monitoring Kafka events. All components, including producers, Spark jobs, Kafka services, and Cassandra, run inside Docker for a consistent and production-ready architecture.
+
 ---
 
 ## Architecture
