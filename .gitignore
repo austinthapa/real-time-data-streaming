@@ -1,0 +1,8 @@
+# Cache
+__pycache__
+
+# venv
+data-stream-venv
+
+# env
+.env
